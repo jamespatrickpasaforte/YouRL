@@ -1,11 +1,11 @@
 const input = document.getElementById("input");
 const urlsList = document.getElementById("urls-list")
 const saveButton = document.getElementById("save-button");
+const readButton = document.getElementById("read-button");
+const deleteButton = document.getElementById("delete-button");
 
-var urls = [];
+let urls = [];
 let urlsInLS = JSON.parse(localStorage.getItem("urls"));
-
-console.log(urlsInLS)
 
 if (urlsInLS) {
     urls = urlsInLS;
@@ -16,9 +16,27 @@ saveButton.addEventListener("click", function () {
     urls.push(input.value);
     input.value = "";
 
-    localStorage.setItem("urls", JSON.stringify(urls));
+    toLocalStorage();
     urlRenderer();
 });
+
+readButton.addEventListener("click", function () {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        urls.push(tabs[0].url);
+        toLocalStorage();
+        urlRenderer();   
+    });
+});
+
+deleteButton.addEventListener("dblclick", function () {
+    urls = [];
+    localStorage.clear();
+    urlRenderer();  
+});
+
+function toLocalStorage() {
+    localStorage.setItem("urls", JSON.stringify(urls));
+}
 
 function urlRenderer() {
     listItem = "";
