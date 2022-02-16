@@ -15,12 +15,17 @@ input {
 button {
     width: 100px;
     height: 30px;
-    color: #FFF;
-    background: #6C63FF;
     border: none;
-    padding: 10px 20px;
-    font-weight: bold;
+    color: #FFF;
     cursor: pointer;
+    padding: 8px 18px;
+    font-weight: bold;
+    background: #6C63FF;
+    border: 1px solid #6C63FF;
+}
+#read-button {
+    color: #6C63FF;
+    background: #FFF;
 }
 ul {
     padding-left: 0;
